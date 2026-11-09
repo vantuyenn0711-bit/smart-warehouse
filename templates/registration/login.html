@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Đăng nhập · Smart Warehouse{% endblock %}
+{% block body %}
+<main class="login-page" id="main-content">
+  <section class="login-art" aria-label="Smart Warehouse">
+    <a class="brand" href="{% url 'dashboard' %}"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 10 12-7 12 7v13l-12 7L4 23V10Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 10 12 7 12-7M16 17v13M10 6.5l12 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span>smart<span class="brand-light">warehouse</span><small>QUẢN LÝ KHO THÔNG MINH</small></span></a>
+    <div class="login-copy"><span class="eyebrow">MỌI DÒNG HÀNG. MỘT GÓC NHÌN.</span><h1>Nắm rõ tồn kho.<br><span>Chủ động vận hành.</span></h1><p>Không gian quản lý tập trung cho sản phẩm, nhập xuất và mọi chuyển động trong kho hàng của bạn.</p><div class="login-benefits"><span><svg class="icon"><use href="#i-check"/></svg>Dữ liệu nhất quán</span><span><svg class="icon"><use href="#i-check"/></svg>Phân quyền rõ ràng</span><span><svg class="icon"><use href="#i-check"/></svg>Truy xuất lịch sử</span></div></div>
+    <div class="login-art-footer">SMART WAREHOUSE <span> / </span> INTERNAL OPERATIONS PLATFORM</div><div class="login-grid-art" aria-hidden="true"></div><svg class="login-cube" viewBox="0 0 300 300" aria-hidden="true"><path d="m30 90 120-70 120 70v130l-120 70-120-70V90Zm0 0 120 70 120-70M150 160v130M90 55l120 70" fill="none" stroke="#fff" stroke-width="2"/></svg>
+  </section>
+  <section class="login-form-area"><div class="login-form-wrapper"><span class="eyebrow">CHÀO MỪNG TRỞ LẠI</span><h2>Đăng nhập hệ thống</h2><p>Sử dụng tài khoản được quản trị viên cấp để tiếp tục.</p>
+    {% if form.non_field_errors %}<div class="form-nonfield-errors" role="alert">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>{% endif %}
+    {% if next and user.is_authenticated %}<div class="notice notice-warning">Tài khoản hiện tại chưa được cấp quyền truy cập nội dung này.</div>{% endif %}
+    <form method="post" action="{% url 'login' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">{% for field in form %}{% include 'includes/field.html' %}{% endfor %}<button class="btn btn-primary" type="submit">Đăng nhập <svg class="icon"><use href="#i-arrow"/></svg></button></form>
+    <div class="login-security"><svg class="icon"><use href="#i-shield"/></svg>Phiên đăng nhập được bảo vệ bằng Django</div>
+    {% if is_demo %}<div class="login-demo-note"><strong>Không gian trình diễn</strong><br>Dữ liệu demo được lưu trong database. Liên hệ người thiết lập để nhận tài khoản và mật khẩu.</div>{% endif %}
+  </div><span class="login-caption">Smart Warehouse · Phần mềm quản lý kho nội bộ</span></section>
+</main>
+{% endblock %}

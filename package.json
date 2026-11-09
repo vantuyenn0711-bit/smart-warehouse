@@ -1,0 +1,13 @@
+{
+  "name": "smart-warehouse-ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Locally compiled Tailwind utilities for Django templates",
+  "scripts": {
+    "build:css": "tailwindcss -i static/css/tailwind.input.css -o static/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i static/css/tailwind.input.css -o static/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.19"
+  }
+}

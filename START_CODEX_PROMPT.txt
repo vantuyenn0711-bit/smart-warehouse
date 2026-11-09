@@ -1,0 +1,6 @@
+Đọc SPEC.md, AGENTS.md, PLAN.md, DECISIONS.md và IMPLEMENTATION_STATUS.md.
+Tiếp tục từ trạng thái thực tế của dự án; không tạo lại hoặc reset dữ liệu đã có.
+Ưu tiên hoàn tất các release gate còn chưa được kiểm chứng; chạy các lệnh phù hợp,
+sửa lỗi và kiểm thử lại trên PostgreSQL. Ghi kết quả thật và giới hạn môi trường
+vào IMPLEMENTATION_STATUS.md. Không tự push, deploy production, phát sinh chi phí,
+in secret hoặc xóa dữ liệu. P2 chỉ bắt đầu khi MVP đạt và người dùng yêu cầu.

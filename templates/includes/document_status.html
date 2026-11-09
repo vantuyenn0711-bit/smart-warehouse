@@ -1,0 +1,1 @@
+{% if document.status == 'CONFIRMED' %}<span class="badge badge-success"><span class="status-dot"></span>Đã xác nhận</span>{% elif document.status == 'CANCELLED' %}<span class="badge badge-neutral">Đã hủy</span>{% else %}<span class="badge badge-warning"><span class="status-dot"></span>Bản nháp</span>{% endif %}
