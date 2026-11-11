@@ -12,6 +12,7 @@
     {% if next and user.is_authenticated %}<div class="notice notice-warning">Tài khoản hiện tại chưa được cấp quyền truy cập nội dung này.</div>{% endif %}
     <form method="post" action="{% url 'login' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">{% for field in form %}{% include 'includes/field.html' %}{% endfor %}<button class="btn btn-primary" type="submit">Đăng nhập <svg class="icon"><use href="#i-arrow"/></svg></button></form>
     <div class="login-security"><svg class="icon"><use href="#i-shield"/></svg>Phiên đăng nhập được bảo vệ bằng Django</div>
+    {% if public_demo_enabled %}<div class="demo-login-panel"><div class="demo-login-heading"><span class="demo-preview-icon"><svg class="icon"><use href="#i-grid"/></svg></span><div><strong>Khám phá Smart Warehouse</strong><p>Trải nghiệm với dữ liệu giả lập riêng, không cần tài khoản.</p></div></div><form method="post" action="{% url 'demo_enter' %}">{% csrf_token %}<button class="btn btn-demo" type="submit">Xem Demo <svg class="icon"><use href="#i-arrow"/></svg></button></form><small><svg class="icon"><use href="#i-shield"/></svg>Chỉ xem dữ liệu · Không thể chỉnh sửa</small></div>{% endif %}
     {% if is_demo %}<div class="login-demo-note"><strong>Không gian trình diễn</strong><br>Dữ liệu demo được lưu trong database. Liên hệ người thiết lập để nhận tài khoản và mật khẩu.</div>{% endif %}
   </div><span class="login-caption">Smart Warehouse · Phần mềm quản lý kho nội bộ</span></section>
 </main>

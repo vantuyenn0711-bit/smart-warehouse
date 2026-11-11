@@ -1,5 +1,40 @@
 # Smart Warehouse — kết quả nghiệm thu MVP
 
+## Bổ sung ngày 11/11/2026: demo công khai chỉ đọc
+
+Đã triển khai nút **Xem Demo**, phiên Viewer không cần tài khoản, **Thoát Demo**
+và **Đăng nhập quản trị**. Đăng nhập thông thường được giữ nguyên. Dữ liệu giả
+nằm trong schema PostgreSQL riêng `warehouse_public_demo`, không sao chép dữ liệu
+nghiệp vụ. Nếu dataset chưa sẵn sàng, demo trả 503, không chuyển sang dữ liệu thật.
+
+Backend giới hạn route/phương thức, router database, dịch vụ nghiệp vụ và truy vấn
+SQL; kết nối demo mặc định read-only. Phiên demo không giữ tài khoản quản trị,
+xoay session/CSRF khi vào/thoát và trả Cache-Control no-store. Không tạo/xóa hay
+reset dữ liệu nghiệp vụ trong quá trình kiểm thử.
+
+Kết quả thực tế mới nhất:
+
+| Kiểm tra | Kết quả |
+| --- | --- |
+| `manage.py check` trong Docker | Không lỗi |
+| `manage.py makemigrations --check --dry-run` | No changes detected |
+| `ruff check .` | All checks passed |
+| `pytest -q --tb=short` trong Docker, PostgreSQL thật | **183 passed in 15.63s**, gồm 60 test demo và 10 test Render |
+| `scripts/http_smoke.py` | **51** kiểm tra đăng nhập/quyền hiện có đạt |
+| `scripts/public_demo_smoke.py` | **28** kiểm tra đạt ở 1440/768/375 px; không lỗi JavaScript, không request bên ngoài, không ghi nghiệp vụ |
+| `prepare_public_demo` chạy hai lần | Tạo dữ liệu giả riêng; lần sau không nhân đôi |
+| `scripts/validate_blueprint.py` | Đạt JSON Schema chính thức của Render; mọi tài nguyên Free và cùng region |
+
+Bằng chứng giao diện: [kết quả trình duyệt](docs/public-demo-smoke-results.json)
+và [ảnh demo](docs/screenshots/public-demo/). Test bao gồm gọi URL/API ghi trực tiếp,
+CSRF, phiên quản trị cũ, truy cập dữ liệu chính, IDOR, SQL không an toàn, dataset
+thiếu và thoát demo. Test dùng database PostgreSQL riêng.
+
+Cấu hình Render đã chuẩn bị, **chưa triển khai online** tại thời điểm ghi mục này.
+Người dùng cho phép GitHub public và chỉ dùng Render Free trong My Workspace.
+Việc apply Blueprint còn cần duyệt kế hoạch tài nguyên cụ thể theo công cụ Render.
+Các mục bên dưới là bằng chứng nghiệm thu trước lần bổ sung này.
+
 Kiểm tra ngày **09/11/2026**, múi giờ Việt Nam. Bản bàn giao chạy **Docker local**;
 launcher đã build, migrate, seed DB trống và đợi app/PostgreSQL healthy thành công.
 **113 test PostgreSQL trong Docker đạt**, cùng 51 kiểm tra HTTP trên cổng 8010.

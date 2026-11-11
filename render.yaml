@@ -1,0 +1,40 @@
+# Free demo only. Render Free Postgres expires 30 days after creation.
+services:
+  - type: web
+    name: smart-warehouse
+    runtime: docker
+    repo: https://github.com/vantuyenn0711-bit/smart-warehouse
+    branch: main
+    region: singapore
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: python scripts/render_start.py
+    healthCheckPath: /health/
+    autoDeployTrigger: commit
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "false"
+      - key: DEMO_MODE
+        value: "true"
+      - key: PUBLIC_DEMO_ENABLED
+        value: "true"
+      - key: WEB_CONCURRENCY
+        value: "1"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEMO_PASSWORD
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: smart-warehouse-db
+          property: connectionString
+
+databases:
+  - name: smart-warehouse-db
+    plan: free
+    region: singapore
+    postgresMajorVersion: "17"
+    databaseName: warehouse
+    user: warehouse
+    ipAllowList: []

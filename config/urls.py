@@ -1,6 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
+from accounts import demo_views
 from accounts import views as account_views
 from catalog import views as catalog_views
 from core import views as core_views
@@ -11,6 +12,9 @@ urlpatterns = [
     path("", report_views.dashboard, name="dashboard"),
     path("login/", auth_views.LoginView.as_view(redirect_authenticated_user=True), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("demo/enter/", demo_views.enter_demo, name="demo_enter"),
+    path("demo/exit/", demo_views.exit_demo, name="demo_exit"),
+    path("demo/admin-login/", demo_views.exit_demo, name="demo_admin_login"),
     path("health/", report_views.health, name="health"),
     path("products/import/", catalog_views.product_import, name="product_import"),
     path("products/export/", catalog_views.product_export, name="product_export"),

@@ -23,3 +23,12 @@
   nguyên ở .runtime/pgdata (55433); Docker dùng volume riêng và không tự sao chép
   dữ liệu. seed_demo --if-empty chỉ bootstrap khi DEMO_MODE bật và chưa có tài
   khoản hoặc dữ liệu nghiệp vụ.
+- Demo công khai mới dùng alias `demo`, search_path chỉ có schema riêng
+  `warehouse_public_demo`, không có fallback sang public. Kết nối mặc định read-only;
+  chỉ lệnh prepare_public_demo được bật ghi khi chuẩn bị dữ liệu giả lập có marker.
+- Phiên demo là principal Viewer không lưu User, không chứa auth user ID; quyền
+  admin trước đó bị bỏ khi vào demo. Chỉ session/CSRF được thay đổi, dữ liệu nghiệp
+  vụ bị chặn ghi. Mọi request demo có Cache-Control no-store và Vary Cookie.
+- Render được người dùng yêu cầu ngày 11/11/2026, chỉ Free trong My Workspace;
+  dùng Blueprint cho web và PostgreSQL cùng Singapore. Không nâng gói hoặc tự
+  tái sử dụng/xóa dịch vụ khác. PostgreSQL Free có giới hạn 30 ngày.

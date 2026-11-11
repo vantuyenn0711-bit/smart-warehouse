@@ -3,11 +3,11 @@ from collections import defaultdict
 from datetime import timedelta
 from decimal import Decimal
 
-from django.db import transaction
 from django.db.models import F, Q, Sum
 from django.db.models.functions import TruncDate
 
 from catalog.models import Product
+from core.demo import demo_transaction
 from inventory.models import StockBalance, StockDocument, StockMovement, Warehouse
 
 ZERO = Decimal("0")
@@ -46,7 +46,7 @@ def chart_for(movements, start, end):
     return result
 
 
-@transaction.atomic
+@demo_transaction
 def inventory_report(data):
     movements = filtered_movements(data)
     start, end = data["start"], data["end"]

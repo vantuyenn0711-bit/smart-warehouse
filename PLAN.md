@@ -21,3 +21,14 @@ Nghiệm thu hiện tại: milestone 1–5 đạt trên bản Docker local; 113 
 51 HTTP checks và bộ bằng chứng giao diện 55/47 checks đã lưu. Native Windows
 hiện bị policy chặn driver; Docker launcher đã chạy thành công và là cách mở
 bản bàn giao. P2 chưa triển khai. Chi tiết lịch sử/giới hạn trong báo cáo tiến độ.
+
+## Bổ sung ngày 11/11/2026
+
+- Demo công khai không mật khẩu: phiên Viewer, dataset PostgreSQL tách schema,
+  chặn ghi tại request/router/SQL, CSRF, thoát và đăng nhập quản trị lại.
+- Nghiệm thu bằng canary dữ liệu chính, các URL/API ghi trực tiếp và luồng
+  browser ở 375/768/1440. Ghi kết quả thực tế trong IMPLEMENTATION_STATUS.md.
+- Người dùng cho phép push GitHub và triển khai Render vào My Workspace, chỉ
+  dùng Free. Chuẩn bị render.yaml, HTTPS/proxy, khởi động và kiểm thử trước khi
+  lập kế hoạch Blueprint. Chỉ Apply sau khi người dùng duyệt kế hoạch cụ thể
+  theo yêu cầu của công cụ approve_blueprint.

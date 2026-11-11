@@ -12,6 +12,7 @@ from django.db import transaction
 from django.utils import timezone
 
 from catalog.models import Category, Product
+from core.demo import in_public_demo
 from core.models import AuditLog
 from inventory.models import (
     StockBalance,
@@ -24,6 +25,8 @@ from partners.models import Supplier
 
 
 def _authorize(actor, *, manager=False):
+    if in_public_demo():
+        raise PermissionDenied("Phiên demo không được thay đổi dữ liệu kho.")
     if not actor or not actor.is_authenticated or not actor.is_active:
         raise PermissionDenied("Bạn cần đăng nhập bằng tài khoản đang hoạt động.")
     if not (actor.can_manage if manager else actor.can_write):

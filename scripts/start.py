@@ -59,6 +59,7 @@ def start_docker(port, open_browser=False):
         ["up", "-d", "--wait", "--wait-timeout", "90", "db"],
         ["run", "--rm", "app", "python", "manage.py", "migrate", "--noinput"],
         ["run", "--rm", "app", "python", "manage.py", "seed_demo", "--if-empty"],
+        ["run", "--rm", "app", "python", "manage.py", "prepare_public_demo"],
         ["up", "-d", "--wait", "--wait-timeout", "90", "app"],
     ]
     for command in commands:

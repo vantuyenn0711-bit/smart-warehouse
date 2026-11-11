@@ -18,6 +18,36 @@ Phạm vi và tiến độ kiểm chứng nằm trong [SPEC.md](SPEC.md), [PLAN.
 
 ## Mở bản đã cài trên máy này
 
+### Xem Demo không cần tài khoản
+
+Ở trang đăng nhập, nhấn **Xem Demo**. Phiên khách có quyền Viewer trong tối đa
+60 phút, xem được dashboard, sản phẩm, tồn kho, chứng từ, lịch sử và báo cáo;
+có thể tải báo cáo Excel/CSV. Nút **Thoát Demo** kết thúc phiên. Nút **Đăng nhập
+quản trị** cũng kết thúc phiên và yêu cầu nhập lại tài khoản quản trị như bình thường.
+
+Demo không sử dụng dữ liệu đang vận hành: dữ liệu giả lập nằm trong schema
+PostgreSQL `warehouse_public_demo`, còn tài khoản và dữ liệu nghiệp vụ chính vẫn
+ở schema hiện có. Hai schema dùng chung PostgreSQL instance để không cần thêm
+dịch vụ trả phí. Public demo không phải tài khoản Admin được giấu nút: phiên không
+có user ID đăng nhập, không có mật khẩu và luôn được xử lý như Viewer.
+
+Middleware chặn mọi request ghi và các URL không thuộc danh sách chỉ đọc; router,
+SQL guard và kết nối PostgreSQL read-only bổ sung lớp bảo vệ. Các truy vấn tới
+database chính và tham chiếu trực tiếp schema `public` trong phiên demo bị chặn.
+Nếu dataset chưa được xác minh/sẵn sàng, demo trả 503, không lấy dữ liệu thật thay thế.
+
+Launcher Docker tự chuẩn bị dataset. Khi chạy thủ công sau migrations:
+
+```powershell
+docker compose run --rm app python manage.py prepare_public_demo
+```
+
+Lệnh này không sao chép, xóa hoặc reset dữ liệu chính; chạy lại không nhân đôi bộ
+demo. Schema không xác định được chủ sở hữu sẽ bị từ chối. Đặt
+`PUBLIC_DEMO_ENABLED=false` để tắt tính năng; `.env.example` mô tả các biến cấu hình.
+
+### Chạy ứng dụng
+
 Trên máy này, Windows Application Control hiện chặn thư viện native của `psycopg_binary`, nên ứng dụng Django native không khởi động lại được dù các kiểm thử trước đó đã chạy thành công. Launcher dùng **Docker local** để chạy ứng dụng và PostgreSQL; không thay đổi Windows policy. Cần Docker Desktop đã cài, file `.env` hiện hữu và Python trong `.venv` để chạy launcher. Từ PowerShell tại thư mục này, chạy:
 
 ```powershell
@@ -42,6 +72,7 @@ docker compose build
 docker compose up -d --wait db
 docker compose run --rm app python manage.py migrate
 docker compose run --rm app python manage.py seed_demo --if-empty
+docker compose run --rm app python manage.py prepare_public_demo
 docker compose up -d --wait app
 docker compose exec app python manage.py check
 ```
@@ -62,6 +93,7 @@ uv run python scripts/init_env.py --database-port 55433 --prompt-demo-password
 # Khởi động PostgreSQL local tại port trong DATABASE_URL trước bước tiếp theo.
 uv run python manage.py migrate
 uv run python manage.py seed_demo
+uv run python manage.py prepare_public_demo
 uv run python manage.py collectstatic --noinput
 uv run python manage.py runserver 127.0.0.1:8010
 ```
