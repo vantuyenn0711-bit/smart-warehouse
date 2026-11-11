@@ -2,13 +2,18 @@
 
 Ứng dụng quản lý kho nội bộ bằng Python 3.13, Django 5.2 LTS và PostgreSQL. Giao diện tiếng Việt gồm dashboard, danh mục, phiếu nhập/xuất nhiều dòng, tồn kho, lịch sử, báo cáo và quản lý tài khoản. Các con số được truy vấn từ database; dữ liệu trình diễn được đánh dấu **DEMO**.
 
+**[Mở website demo](https://smart-warehouse-0sh0.onrender.com)** → nhấn **Xem Demo**,
+không cần tài khoản. Phiên Viewer chỉ xem dữ liệu giả riêng. Render Free có thể
+khởi động chậm sau khi ngủ; database Free hiện hết hạn **11/12/2026**.
+Xem [hướng dẫn Render](docs/RENDER.md).
+
 ## Điểm nổi bật
 
 - **Nhập/xuất kho an toàn:** service layer, transaction và khóa dữ liệu PostgreSQL; chặn xuất vượt tồn và xác nhận trùng chứng từ.
 - **Phân quyền tại backend:** Admin, Manager, Staff, Viewer; lưu nhật ký thao tác và khóa chứng từ đã xác nhận.
 - **Dashboard và báo cáo thực:** Chart.js, lọc theo kỳ/kho/SKU, cảnh báo tồn thấp, xuất Excel/CSV và in phiếu.
 - **Giao diện responsive:** Django Templates, Tailwind CSS và HTMX; hỗ trợ desktop, tablet, mobile; assets và font phục vụ local.
-- **Kiểm chứng có bằng chứng:** 113 test trên PostgreSQL, 51 kiểm tra HTTP và bộ kiểm tra trình duyệt đã lưu; Docker Compose, migrations, dữ liệu demo và hướng dẫn backup/restore.
+- **Kiểm chứng có bằng chứng:** 183 test trên PostgreSQL, 51 kiểm tra HTTP và 28 kiểm tra demo trên trình duyệt local cùng 28 kiểm tra trên Render; Docker Compose, migrations, dữ liệu demo và hướng dẫn backup/restore.
 
 ![Dashboard Smart Warehouse với dữ liệu demo trong PostgreSQL](docs/screenshots/dashboard-desktop.png)
 

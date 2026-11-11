@@ -30,9 +30,22 @@ và [ảnh demo](docs/screenshots/public-demo/). Test bao gồm gọi URL/API gh
 CSRF, phiên quản trị cũ, truy cập dữ liệu chính, IDOR, SQL không an toàn, dataset
 thiếu và thoát demo. Test dùng database PostgreSQL riêng.
 
-Cấu hình Render đã chuẩn bị, **chưa triển khai online** tại thời điểm ghi mục này.
-Người dùng cho phép GitHub public và chỉ dùng Render Free trong My Workspace.
-Việc apply Blueprint còn cần duyệt kế hoạch tài nguyên cụ thể theo công cụ Render.
+Người dùng đã duyệt kế hoạch Render Free trong My Workspace. Blueprint đã apply,
+deploy `dep-dbpugj3rjlhs73b5ancg` của commit `f5f9ae8` đạt **Live** lúc
+11:02:45 ngày 11/11/2026 (giờ Việt Nam); `/health/` trả 200. Website:
+https://smart-warehouse-0sh0.onrender.com . PostgreSQL và Web Service đều Free,
+region Singapore; không thay đổi dịch vụ cũ.
+
+Kiểm tra trình duyệt trực tiếp trên Render: **28 checks đạt**, không lỗi JavaScript
+và không request ngoài origin. Bao gồm 1440/768/375 px, vào/thoát demo, năm trang
+chỉ đọc, chart, tải Excel, bốn URL/API ghi trả 403 và quay lại đăng nhập quản trị.
+[Bằng chứng cloud](docs/render-demo-smoke-results.json). Không dùng mật khẩu,
+không ghi dữ liệu nghiệp vụ trong kiểm tra này.
+
+Database có IP allowlist rỗng để chặn kết nối bên ngoài. Công cụ truy vấn SQL qua
+Render MCP không kết nối được do hạn chế này; không mở firewall để kiểm tra.
+Schema demo đã chuẩn bị thành công theo log startup và các trang demo hoạt động.
+PostgreSQL Free hết hạn **11/12/2026**; xem [runbook](docs/RENDER.md).
 Các mục bên dưới là bằng chứng nghiệm thu trước lần bổ sung này.
 
 Kiểm tra ngày **09/11/2026**, múi giờ Việt Nam. Bản bàn giao chạy **Docker local**;
