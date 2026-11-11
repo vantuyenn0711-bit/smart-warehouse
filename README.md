@@ -2,6 +2,18 @@
 
 Ứng dụng quản lý kho nội bộ bằng Python 3.13, Django 5.2 LTS và PostgreSQL. Giao diện tiếng Việt gồm dashboard, danh mục, phiếu nhập/xuất nhiều dòng, tồn kho, lịch sử, báo cáo và quản lý tài khoản. Các con số được truy vấn từ database; dữ liệu trình diễn được đánh dấu **DEMO**.
 
+## Điểm nổi bật
+
+- **Nhập/xuất kho an toàn:** service layer, transaction và khóa dữ liệu PostgreSQL; chặn xuất vượt tồn và xác nhận trùng chứng từ.
+- **Phân quyền tại backend:** Admin, Manager, Staff, Viewer; lưu nhật ký thao tác và khóa chứng từ đã xác nhận.
+- **Dashboard và báo cáo thực:** Chart.js, lọc theo kỳ/kho/SKU, cảnh báo tồn thấp, xuất Excel/CSV và in phiếu.
+- **Giao diện responsive:** Django Templates, Tailwind CSS và HTMX; hỗ trợ desktop, tablet, mobile; assets và font phục vụ local.
+- **Kiểm chứng có bằng chứng:** 113 test trên PostgreSQL, 51 kiểm tra HTTP và bộ kiểm tra trình duyệt đã lưu; Docker Compose, migrations, dữ liệu demo và hướng dẫn backup/restore.
+
+![Dashboard Smart Warehouse với dữ liệu demo trong PostgreSQL](docs/screenshots/dashboard-desktop.png)
+
+Xem [sơ đồ dữ liệu](docs/ERD.md), [quyết định thiết kế](DECISIONS.md) và [kết quả kiểm thử cùng giới hạn đã biết](IMPLEMENTATION_STATUS.md).
+
 Phạm vi và tiến độ kiểm chứng nằm trong [SPEC.md](SPEC.md), [PLAN.md](PLAN.md) và [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md). Tài liệu tiến độ ghi riêng lệnh đã chạy, kết quả và mục chưa xác minh. Chuyển kho, kiểm kê, barcode và lô hàng thuộc P2, chưa có trong MVP. Smart Sales, đơn hàng và thanh toán ngoài phạm vi dự án này.
 
 ## Mở bản đã cài trên máy này

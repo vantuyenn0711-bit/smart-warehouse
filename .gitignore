@@ -22,10 +22,3 @@ backups/
 .aws/
 .codex/
 .agents/
-*.dump
-*.bak
-*.pem
-*.key
-.aws/
-.codex/
-.agents/
